@@ -1,3 +1,8 @@
+# enable Password authentication
 sed -i 's/.*PasswordAuthentication.*/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+
+# Remove other sshd configurations
 rm -rf /etc/ssh/sshd_config.d/*
+
+# add notatime to all partitions, ignoring swap
 awk -i inplace '!/^#/ && ($2 != "swap") { if(!match($4, /noatime/)) $4=$4",noatime" } 1' /etc/fstab
